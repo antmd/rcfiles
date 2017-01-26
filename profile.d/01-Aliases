@@ -14,7 +14,6 @@ alias cdpath='pwd >> ~/.cdpath ; export CDPATH=`colonise ~/.cdpath`'
 alias tkcon='/usr/local/bin/tkcon.tcl &'
 alias f=finger
 alias h=history
-alias j=jobs
 # Use gnu fileutils for ls, with pretty colours
 alias grep="grep -s --color=auto"
 alias lo=logout

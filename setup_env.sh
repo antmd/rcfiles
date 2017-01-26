@@ -22,6 +22,9 @@ cd $HOME
 
 for f in ${RcFiles}; do
     RcFile=${f#./}
+
+	[[ "$RcFile" = ".git" ]] && continue
+	
     if [[ -e "$f" ]]; then
         echo "Moving ~/$RcFile to ~/$RcFile.moved"
         mv "$RcFile" "$RcFile.moved"
@@ -33,3 +36,5 @@ done
 if [[ ! -d "profile.d" ]]; then
     ln -s "$ScriptDir/profile.d" .
 fi
+
+# vim:sts=4:ts=4:sw=4:
