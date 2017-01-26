@@ -1,4 +1,8 @@
 
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
 # Source the contents of the ~/profile.d directory
 
 ProfileDir="${HOME}/profile.d"
