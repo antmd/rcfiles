@@ -1,0 +1,7 @@
+set ignorecase
+set wrapscan
+set guioptions=br
+
+set relativenumber
+set number
+set blinkcursor

@@ -1,0 +1,107 @@
+# vim: syntax=sh
+# Find a file somewhere in or below the current directory, with a given fragment of the filename
+# The search is case-insensitive
+function ffile() { find . | grep -i --color=always "$1"; }
+# The extra 'grep' is for colouring only
+function fdir() { find . -type d -iname "$1" | grep -i --color=always "$1"; }
+
+# Pathmunge -- add a new path to a path variable
+# arg1 - name of path variable
+# arg2 - new path to add
+# arg3 - if present APPEND rather than PREPEND
+pathmunge () {
+    local pathVar=$1
+    local pathVal=$(eval echo \$$pathVar)
+    local newVal=$2
+    if [ -d "$2" ]; then
+        if [ -z "$pathVal" ]; then
+            pathVal=$newVal
+        elif ! echo $pathVal | /usr/bin/egrep -q "(^|:)$newVal($|:)" >/dev/null 2>&1 ; then
+           if [ $# -ge 3 ] ; then
+              pathVal=$pathVal:$newVal
+           else
+              pathVal=$newVal:$pathVal
+           fi
+        fi
+        eval $pathVar=$pathVal
+    fi
+}
+
+# Remove dups from history file, but maintain order
+compress_history() {
+    awk 'NR==FNR && !/^#/{lines[$0]=FNR;next} lines[$0]==FNR' "$HISTFILE" "$HISTFILE" > "$HISTFILE.compressed" &&
+    mv "$HISTFILE.compressed" "$HISTFILE"
+}
+
+
+function rmthisdir()
+{
+    ThisDir=$(basename $PWD)
+    if confirm_default_no "Delete directory $ThisDir"; then
+        cd ..
+        rm -rf "${ThisDir}"
+    fi
+
+}
+
+# Converts a \n separated list into a colon separated list
+colonise() {
+        /bin/cat $1 | /usr/bin/tr "\012" ":"
+}
+
+# Recursive find for a filename fragment, with automatic wildcarding
+ffile() { find . -iname "*$1*"; }
+
+# psfind <pattern>
+# looks through all running processes, and prints the PID of a matching one
+psfind() { 
+    psgrep "$1" 2>/dev/null | /usr/bin/grep "$1" | awk '{print $2}' 
+}
+
+links()
+{
+    xterm -bg "#600060" -fg White -geometry 90x36 -e /opt/local/bin/lynx $1 &
+}
+
+man2ps ()
+{
+    troff -man $1 | /usr/lib/lp/postscript/dpost > $1.ps
+}
+
+
+
+# add the directories specified to the path file
+# and re-read it.
+pathadd() {
+        for p in $*
+        do
+                echo $p >> ~/.path
+        done
+        export PATH=`colonise ~/.path`
+}
+    
+rgrep() {
+    find . -exec grep $* \; -print {}
+}   
+
+
+# cd up a few directories at once
+up () {
+        COUNTER=$1
+        while [[ $COUNTER -gt 0 ]]
+         do
+          UP="${UP}../"
+          COUNTER=$(( $COUNTER -1 ))
+         done
+        echo "cd $UP"
+        cd $UP
+        UP=''
+}
+
+logterm() {
+    # Log only if we're running in a terminal
+    if [ -t 1 ]; then
+        echo "$@"
+    fi
+}
+. ~/profile.d/Utilities/bash_utils

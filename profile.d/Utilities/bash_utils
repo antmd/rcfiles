@@ -1,0 +1,207 @@
+
+
+scriptname() {
+    echo "$basename $0"
+}
+##
+# warn: Print a message to stderr.
+# Usage: warn "format" ["arguments"...]
+#
+warn() {
+  local fmt="$1"
+  shift
+  printf "$(scriptname):[31m $fmt\n" "$@" "[0m" >&2
+}
+##
+# die (optional status version): Print a message to
+# stderr and exit with either the given status or
+# that of the most recent command.
+# Usage: some_command || die [status code] "message" ["arguments"...]
+#
+die() {
+  local st="$?"
+  if [[ "$1" != *[^0-9]* ]]; then
+    st="$1"
+    shift
+  fi
+  warn "$@"
+  exit "$st"
+}
+
+#===  FUNCTION  ================================================================
+#         NAME:  strip_first_matching_suffix
+#  DESCRIPTION:  Strip the first matching suffix in a list of suffixes from the 
+#                first argument. Echos the result (stripped or not) to stdout.
+#    ARGUMENTS:  $1 - The string to strip
+#                $2... -- A list of suffxes to strip if present
+#      RETURNS:  0 if a suffix was successfully stripped, or 1 if no suffix found
+#===============================================================================
+
+function strip_first_matching_suffix()
+{
+    local String=$1
+    shift
+    local SuffixList=$*
+    local StrippedString=$String
+
+    for Suffix in $SuffixList; do
+        StrippedString=${String%$Suffix}
+        if [[ "$StrippedString" != "$String" ]]; then
+            echo $StrippedString
+            true
+            return
+        fi
+    done
+
+    echo $String
+    false
+}
+
+
+#===  FUNCTION  ================================================================
+#         NAME:  path_resolving_symlinks
+#  DESCRIPTION:  Return the path with all symlinks resolved, for the given path
+#===============================================================================
+
+function path_resolving_symlinks()
+{ (
+    local _File="$@"; local _FileDir; local _NextDir; local _Link; local _LoopCount=0
+
+    until false; do
+        _FileDir=$(dirname "$_File")
+        cd -P "$_FileDir" || return 1
+        _File=$(basename "$_File")
+        _Link=$(readlink "$_File") || break
+        if [[ "$_Link" = "$_File" || $(( _LoopCount++ )) -gt 100 ]]; then
+            return 1 # Recursive Link
+        fi  
+        _File="$_Link"
+    done
+    _File=$(pwd -P)/$(basename "$_File")
+    [ -e "$_File" ] || return 1
+    if [[ -d "$_File" ]] && pushd "$_File" >/dev/null ; then
+        _File=$(pwd -P) 
+    fi  
+    echo "$_File"
+) }
+
+
+#===============================================================================
+# tolower -- lowercase a string
+#===============================================================================
+
+function tolower() {
+    echo "$*" | tr '[[:upper:]]' '[[:lower:]]'
+}
+
+
+function toupper() {
+    echo "$*" | tr '[[:lower:]]' '[[:upper:]]'
+}
+
+
+#===============================================================================
+# Prompt for confirmation, with a default of 'No'
+# 
+# Arguments:
+#   <prompt> (optional) -- the prompt to print
+#===============================================================================
+
+confirm_default_no () {
+    read -r -p "${1:-Are you sure?} [y/N] " response
+    case $response in
+        [yY][eE][sS]|[yY]) 
+            true
+            ;;
+        *)
+            false
+            ;;
+    esac
+}
+
+#===============================================================================
+# Prompt for confirmation, with a default of 'Yes'
+# 
+# Arguments:
+#   <prompt> (optional) -- the prompt to print
+#===============================================================================
+
+confirm_default_yes () {
+    read -r -p "${1:-Are you sure?} [Y/n] " response
+    case $response in
+        [nN][oO]|[nN]) 
+            false
+            ;;
+        *)
+            true
+            ;;
+    esac
+}
+
+function make_tempdir() {
+    local tmp=${TMPDIR-/tmp}
+    tmp=${tmp%/}/$(basename ${0##-}).$RANDOM.$RANDOM.$RANDOM.$$
+    (umask 077 && mkdir $tmp) || {
+        echo "Could not create temporary directory! Exiting." 1>&2 
+        return 1
+    }
+    echo "$tmp"
+}
+
+function refresh() {
+    echo "Sourcing bashrc"
+    source ~/.bashrc
+}
+
+function make_dir() {
+    local _newDir="$1"
+    if [ ! -d "${_newDir}" ]; then
+        mkdir "${_newDir}"
+        STATUS=$?
+        if [ "${STATUS}" -ne 0 ]; then
+            log "Failed to create directory: ${_newDir}. Error ${STATUS}"
+            return 1
+        fi
+    fi
+    return 0
+}
+
+# Returns 'darwin', 'linux', etc.
+function platform() {
+    python -c "import platform; print platform.system();" | tr '[:upper:]' '[:lower:]'
+}
+
+# Returns '10.9.3', etc.
+function os_version_num() {
+    python -c "import platform; print platform.mac_ver()[0];"
+}
+
+# Returns '10.9', etc.
+function os_major_version_num() {
+    python -c "import platform; print '.'.join(platform.mac_ver()[0].split('.')[0:2]);"
+}
+
+# Returns 'Mavericks', etc.
+function os_version_name() {
+    case $(os_major_version_num) in
+        10.5) echo "Leopard";;
+        10.6) echo "SnowLeopard";;
+        10.7) echo "Lion";;
+        10.8) echo "MountainLion";;
+        10.9) echo "Mavericks";;
+        10.10) echo "Yosemite";;
+        10.11) echo "ElCapitan";;
+        10.12) echo "Sierra";;
+    *) echo "Unknown";;
+    esac
+}
+
+function xcode_base_dir() {
+    xcode_developer_dir=$(xcode-select -p)
+    if [[ $? -eq 0 && -n "$xcode_developer_dir" ]]; then
+        xcode_dir=$(dirname $(dirname "$xcode_developer_dir"))
+    else
+        xcode_dir=/Applications/Xcode.app
+    fi
+    echo "$xcode_dir"
+}

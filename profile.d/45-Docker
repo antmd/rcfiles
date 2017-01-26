@@ -1,0 +1,31 @@
+
+# On macOS machines that cannot run 'native' Docker, a VM is run
+# to host Docker. We need to source the env so that docker on
+# macOS can transparently control the docker daemon running in
+# the VM
+if [[ -n "$OS_MAC" ]]; then
+
+    if [[ -e /usr/local/bin/docker-machine ]]; then
+
+        # All of the following operate on the 'default' VM
+
+        #logterm "Sourcing default VM's docker config"
+        eval "$(/usr/local/bin/docker-machine env >/dev/null 2>&1)"
+
+        dockerssh() {
+            /usr/local/bin/docker-machine ssh "$@"
+        }
+
+        dockerup() {
+            /usr/local/bin/docker-machine start "$@"
+        }
+
+        dockerdown() {
+            /usr/local/bin/docker-machine stop "$@"
+        }
+    fi
+fi
+
+
+# vim:filetype=sh:
+

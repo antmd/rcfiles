@@ -1,0 +1,40 @@
+define(){ IFS='\n' read -r -d '' ${1} || true; }
+
+# Leading tabs -- cannot expand variables
+define PATHS <<-EOT
+    .
+    ${HOME}/bin
+    ${HOME}/script
+    ${HOME}/Development/bin
+    ${HOME}/Library/Haskell/bin
+    ${HOME}/.gem/ruby/1.8/bin
+    /usr/local/bin
+    /usr/bin
+    /bin
+    /usr/sbin
+    /sbin
+    /usr/X11/bin
+    /usr/local/bin
+    /usr/local/sbin
+    /Developer/usr/bin
+    ${HOME}/Development/Android/sdk/platform-tools
+    ${HOME}/Library/Python/2.7/bin
+    ${HOME}/.node/bin
+    /usr/local/share/dotnet
+    $SCALA_HOME/bin
+    /Applications/Xcode.app/Contents/Developer/usr/bin
+    /usr/libexec
+EOT
+
+export PATH=
+
+for p in $PATHS
+do
+    pathmunge PATH "$p" after
+done
+
+
+if [[ -n "$OS_MAC" ]]; then
+# brew libraries -- needed for graph-tool
+pathmunge DYLD_FALLBACK_LIBRARY_PATH /usr/local/lib after
+fi

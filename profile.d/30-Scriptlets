@@ -1,0 +1,18 @@
+ScriptletDir=~/profile.d/Scriptlets
+export PATH=$PATH:$ScriptletDir
+
+pushd $ScriptletDir >& /dev/null
+for Scriptlet in $( ls  -1H ) ; do
+    if [[ -f "${Scriptlet}" && "${Scriptlet%.*}" == "${Scriptlet}" ]]; then
+
+        if shopt -q login_shell; then
+            source $Scriptlet
+        else
+            # Swallow all output if this is not a login shell (breaks scp, etc.)
+            source $Scriptlet >/dev/null 2>&1 
+        fi
+
+    fi
+done
+popd >& /dev/null
+# vim: set filetype=sh:

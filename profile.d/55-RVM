@@ -1,0 +1,10 @@
+# Ruby something or other
+if [[ -e $HOME/.rvm ]]; then
+    export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+    . "$HOME/.direnvrc"
+
+    function ruby-switch() {
+        rvm use 2.3.1
+    }
+fi

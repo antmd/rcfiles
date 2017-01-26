@@ -1,0 +1,26 @@
+# vim:filetype=sh:
+
+source ~/profile.d/Utilities/bash_colors
+
+if type git >/dev/null; then
+
+    # Have git
+    source ~/profile.d/Utilities/git-prompt
+    export PS1=$On_IBlack$Black$History$White$Space$IGreen$Username'@'$HostnameShort$White'$(git branch &>/dev/null;\
+if [ $? -eq 0 ]; then \
+  echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
+  if [ "$?" -eq "0" ]; then \
+    # @4 - Clean repository - nothing to commit
+    echo "'$Green'"$(__git_ps1 " (%s)"); \
+  else \
+    # @5 - Changes to working tree
+    echo "'$IRed'"$(__git_ps1 " {%s}"); \
+  fi) '$Yellow$PathShort$Color_Off$Newline'\$ "; \
+else \
+  # @2 - Prompt when not in GIT repo
+  echo " '$Yellow$PathShort$Newline$On_IBlack'\$'$Color_Off' "; \
+fi)'
+
+else
+    export PS1='\n\[\e[00;32m\]\u\[\e[0m\]\[\e[01;32m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[01;30m\][\!]\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;33m\]\W/\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;37m\]\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]'
+fi

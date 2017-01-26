@@ -1,0 +1,21 @@
+
+# KEY BINDINGS
+# ------------
+# Note. \e means press escape then release, so to get the binding
+# \ep:history-search-backward,
+# press escape, release it, then press 'p'
+
+# Bind Esc-p to search backwards through history for a command matching the
+# current command line, and complete it
+bind '"\ep":history-search-backward'
+
+# Bind Esc-n to search forwards through history for a command matching the
+# current command line, and complete it
+bind '"\en":history-search-forward'
+
+# Control-x to wipe the current command line and start again
+bind '"\C-x":kill-whole-line'
+
+# Control-a to move to start of line (default)
+# Control-e to move to end of line (default)
+

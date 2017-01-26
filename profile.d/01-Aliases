@@ -1,0 +1,33 @@
+# Extended ls
+alias ll='ls -lrt'
+alias la='ls -lart'
+alias ls='ls -HF'
+
+alias less='less -XR'
+alias a='man -k'
+alias be='$EDITOR ~/.bashrc ; source ~/.bashrc'
+
+# add the current directory to the "cdpath"
+alias cdpath='pwd >> ~/.cdpath ; export CDPATH=`colonise ~/.cdpath`'
+
+# abbreviations for some common commands
+alias tkcon='/usr/local/bin/tkcon.tcl &'
+alias f=finger
+alias h=history
+alias j=jobs
+# Use gnu fileutils for ls, with pretty colours
+alias grep="grep -s --color=auto"
+alias lo=logout
+alias ldd='otool -L'
+alias m='less -a -i -P='
+alias which='type -all'
+alias manprint='groff -mandoc -Tlatin1 '
+alias mv='mv -i'
+alias import_dsym='mdimport -g /usr/local/bin/uuid.mdimporter'
+alias swiftc='xcrun -sdk macosx swiftc'
+alias refresh='. ~/.bashrc'
+alias ack='ag -i'
+alias qtpython='ipython qtconsole &'
+alias pynote='cd ~/Dropbox/python-notebooks && ipython notebook'
+# All open TCP/IP and UDP ports
+alias ports='netstat -tulanp'

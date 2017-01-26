@@ -1,0 +1,17 @@
+# vim:filetype=sh:
+#
+# For virtualenvwrapper
+export WORKON_HOME=~/Development/VirtualEnv
+
+if [[ -e usr/local/lib/pkgconfig ]]; then export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig; fi
+
+export EDITOR=vim
+
+# Maven2 Support
+export M2_HOME=/usr/local/maven
+export M2=$M2_HOME
+
+# HTML Tidy ('tidy')
+HTML_TIDY="${HOME}/.htmltidyrc"
+
+export INFOPATH=/opt/local/share/info:$INFOPATH

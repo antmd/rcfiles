@@ -1,0 +1,66 @@
+# vim: syntax=sh
+
+if [[ -n "$OS_MAC" ]]; then
+
+function vim_at_line() {
+    set - $( echo $1 | tr ':' ' ')
+    if [[ $# -eq 2 ]]; then
+        mvim +$2 "$1"
+    else
+        mvim "$1"
+    fi
+}
+
+function makeproj()
+{
+    last_arg=${@:$#}
+
+    MainFile=$(~/script/make_project.sh "$@" | grep 'EDITSPEC:')
+    if [[ ! -z "$MainFile" ]]; then
+        MainFile=${MainFile#EDITSPEC:}
+        cd "$last_arg"
+        vim_at_line "$MainFile"
+        echo "Changed to project directory $last_arg"
+    fi
+}
+
+function makeapp()
+{
+    local AppDir=${1%%App}App
+    ~/script/make_project.sh ${AppDir}
+    cd "${AppDir}"
+    echo "Changed to project directory $AppDir"
+}
+
+# Use MacVim for gvim
+function gvim()
+{
+    mvim "$@" 2>&1 >/dev/null &
+}
+
+otxdump() {
+    if [[ $# -ne 1 || "$1" == "-h" ]]; then
+        echo "Usage: otxdump <PROGRAMFILE>"
+        return 1
+    fi
+
+    gawk --posix -- '/^-|^\+/ { print $0 }
+/.{83,}/ {print substr($0,82)}
+' <(otx -e $1)
+
+}   
+
+testmalloc() {
+    MallocStackLogging=1 MallocStackLoggingNoCompact=1 MallocScribble=1 $@
+}   
+
+recent() {
+    local -r timeRangeInSecs=3600
+    local rootFolder=${1:-~}
+set -x
+    mdfind -onlyin "${rootFolder}"  "kMDItemFSContentChangeDate >= \$time.now(-${timeRangeInSecs}) && kMDItemKind != 'Folder'" | egrep -v 'Library'
+set +x
+}
+
+fi
+

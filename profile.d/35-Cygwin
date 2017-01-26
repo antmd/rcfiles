@@ -1,0 +1,41 @@
+if [[ -n "$CYGWIN" ]]; then
+
+################################################################################
+
+function explore() {
+    /bin/cygstart --explore "${1:-.}"
+}
+
+
+if ! ps -e -u $USER | grep ssh-agent >/dev/null 2>&1; then
+    eval `ssh-agent -s`
+    ssh-add ~/.ssh/*_rsa
+fi
+
+export DISPLAY=localhost:0.0
+xhost +
+
+if [[ ! -e /cygdrive/c/ProgramData/chocolatey ]]; then
+    echo "WARNING: chocolatey has not been installed!"
+    echo "Install chocolatey and then run:"
+    echo "    choco install mingw"
+    echo "    choco install ag"
+fi
+
+# Leading tabs -- cannot expand variables
+define CYGPATHS <<- 'EOT'
+    /cygdrive/c/ProgramData/chocolatey/bin
+    /cygdrive/c/tools/mingw64/bin
+EOT
+
+for p in $CYGPATHS
+do
+    pathmunge PATH "$p" after
+done
+
+################################################################################
+
+fi
+
+
+# vim:filetype=sh:

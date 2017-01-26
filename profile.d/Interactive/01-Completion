@@ -1,0 +1,5 @@
+
+if [ -d /usr/share/bash-completion ]; then
+        . /usr/share/bash-completion/bash_completion
+fi
+

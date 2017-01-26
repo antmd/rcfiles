@@ -1,0 +1,57 @@
+
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool]
+    prompt = false
+    keepBackup = false
+[merge]
+    tool = Kaleidoscope
+    defaultToUpstream = true
+[difftool]
+    prompt = false
+[diff]
+    tool = vimdiff
+
+[user]
+    name = Anthony Dervish
+    email = anthony@dervishsoftware.com
+[alias]
+    co = checkout
+    incoming = !git fetch && git log ..origin/master
+    outgoing = !git fetch && git log origin/master..
+    cloner = clone --recurse-submodules
+    clone-all = clone --recurse-submodules
+    lg2 = log --graph --pretty=format:'%Cblue %h %Cgreen %cr %Creset %s'
+    lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    graph = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    lg = !"git lg1"
+    remotes = remote -v show
+    submodule-update = submodule update --init --recursive
+    filelog = log -u
+    fl = log -u
+    conflicts = !git ls-files -u | cut -f 2 | sort -u
+    pushup = !git push --set-upstream origin `git symbolic-ref --short HEAD`
+    last = log -1 HEAD
+    st = status -sb
+[apply]
+    whitespace = nowarn
+[core]
+    editor = /usr/bin/vim
+    excludesfile = ~/.gitignore_global
+[push]
+    default = tracking
+[core]
+    symlinks = true
+    autocrlf = input
+[pull]
+    rebase = true
+[filter "hawser"]
+    clean = git hawser clean %f
+    smudge = git hawser smudge %f
+    required = true
+[filter "lfs"]
+    clean = git lfs clean %f
+    smudge = git lfs smudge %f
+    required = true
+[http]
+    postBuffer = 1048576000

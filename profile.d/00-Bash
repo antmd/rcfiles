@@ -1,0 +1,49 @@
+
+# HISTORY CONTROL
+# ---------------
+# Bigger history size
+# vim:filetype=sh:
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+# When a command is entered again, only keep the last instance
+# AND, ignore commands with a leading space
+export HISTCONTROL=erasedups:ignorespace
+# Specific commands to exclude from history
+export HISTIGNORE="ls:cd:history"
+
+# Always append to history; also used by autojump
+if [[ ! "$PROMPT_COMMAND" =~ history\ *-a ]]; then
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
+fi
+
+# Append to history file, over sessions
+shopt -s histappend
+# Verify history substitutions
+shopt -s histverify
+
+# Other settings
+umask a=rwx,o-w
+# Allow extended globbing, e.g. cp MyClass.+(h|m) /tmp
+shopt -s extglob
+
+export bash_major_version=`echo $BASH_VERSION | sed -e 's/bash-//' -e 's/\..*$//'`
+
+# OS Identification
+OS_WIN=
+OS_MAC=
+OS_LINUX=
+CYGWIN=
+
+if [[ $(uname -s) =~ ^CYGWIN*  ]]; then
+    CYGWIN=1
+    OS_WIN=1
+fi
+export CYGWIN
+
+os_id=$(echo $OSTYPE | tr '[[:upper:]]' '[[:lower:]]')
+if [[ "$os_id" =~ ^darwin*   ]]; then
+    OS_MAC=1
+elif [[ "$os_id" =~ ^linux*   ]]; then
+    OS_LINUX=1
+fi
+
