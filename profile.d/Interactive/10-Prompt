@@ -6,7 +6,7 @@ if type git >/dev/null; then
 
     # Have git
     source ~/profile.d/Utilities/git-prompt
-    export PS1=$On_IBlack$Black$History$White$Space$BIBlue$Username$Color_Off$IGreen'|'$Color_Off$IGreen$HostnameShort$White'$(git branch &>/dev/null;\
+    export PS1=${On_IBlack}${Black}${History}${White}${Space}$(if [[ "$USER" = "root" ]]; then echo ${URed}; else echo ${BIBlue}; fi)${Username}${Color_Off}${IGreen}'|'${Color_Off}${IGreen}${HostnameShort}${White}'$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
   echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
   if [ "$?" -eq "0" ]; then \
