@@ -11,10 +11,10 @@
 #
 #===============================================================================
 
-set -o nounset                              # Treat unset variables as an error
-
 ScriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}"  )" && pwd  )"
 cd "$ScriptDir"
+
+source ./bash-config/profile.d/Utilities/bash_utils
 
 if ! [[ -d bin/stow ]]; then
     cd bin
@@ -28,8 +28,9 @@ RcFiles=$(find . -maxdepth 1 -type d -name '*-config')
 
 for ConfigDir in ${RcFiles}; do
     ConfigDir=${ConfigDir#./}
-    echo "Install ${ConfigDir}"
+    printf "Processing ${ConfigDir}..."
     $Stow -v --target="${HOME}" -S "${ConfigDir}"
+    [[ $? -eq 0 ]] && printf "done\n"
 done
 
 # vim:sts=4:ts=4:sw=4:
