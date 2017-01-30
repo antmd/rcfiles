@@ -4,7 +4,7 @@ if [ -f ~/.bashrc  ]; then
    source ~/.bashrc
 fi
 
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+# Are we running inside INTELLIJ terminal emulator?
 
 if [[ -n "$DISPLAY" && -e ~/.Xmodmap ]]; then
     xmodmap ~/.Xmodmap

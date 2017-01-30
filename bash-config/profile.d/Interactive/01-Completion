@@ -1,5 +1,14 @@
+# vim:filetype=sh:
 
-if [ -d /usr/share/bash-completion ]; then
+if [[ -n "$OS_MAC" ]]; then
+    # Homebrew?
+    if type brew >/dev/null 2>&1; then
+        if [ -f $(brew --prefix)/etc/bash_completion ]; then
+            . $(brew --prefix)/etc/bash_completion
+        fi
+    fi
+else
+    if [ -d /usr/share/bash-completion ]; then
         . /usr/share/bash-completion/bash_completion
+    fi
 fi
-
