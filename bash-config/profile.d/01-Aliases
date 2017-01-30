@@ -3,6 +3,14 @@ alias ll='ls -lrt'
 alias la='ls -lart'
 alias ls='ls -HF'
 
+# cd
+alias -- --='cd -'
+alias ..1='cd ..'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+alias ..4='cd ../../../..'
+alias ..5='cd ../../../../..'
+
 alias less='less -XR'
 alias a='man -k'
 alias be='$EDITOR ~/.bashrc ; source ~/.bashrc'
@@ -12,21 +20,39 @@ alias cdpath='pwd >> ~/.cdpath ; export CDPATH=`colonise ~/.cdpath`'
 
 # abbreviations for some common commands
 alias tkcon='/usr/local/bin/tkcon.tcl &'
-alias f=finger
 alias h=history
+
 # Use gnu fileutils for ls, with pretty colours
 alias grep="grep -s --color=auto"
-alias lo=logout
-alias ldd='otool -L'
+alias egrep="egrep -s --color=auto"
+alias fgrep="fgrep -s --color=auto"
+
 alias m='less -a -i -P='
 alias which='type -all'
 alias manprint='groff -mandoc -Tlatin1 '
 alias mv='mv -i'
-alias import_dsym='mdimport -g /usr/local/bin/uuid.mdimporter'
-alias swiftc='xcrun -sdk macosx swiftc'
 alias refresh='. ~/.bashrc'
 alias ack='ag -i'
 alias qtpython='ipython qtconsole &'
-alias pynote='cd ~/Dropbox/python-notebooks && ipython notebook'
+
+# TMUX
+alias tma='tmux attach-session'
+
+#
 # All open TCP/IP and UDP ports
 alias ports='netstat -tulanp'
+alias free='free -m'
+alias df='df -h'
+alias du='du -h'
+alias myip='curl ipinfo.io/ip'
+
+if [[ -n "$OS_LINUX" ]]; then
+    alias du0="du --max-depth=0"
+    alias du1="du --max-depth=1"
+    if [[ "${USER}" != 'root' ]]; then
+        alias yum='sudo yum'
+    fi
+fi
+
+alias now='date +"%Y-%m-%d %T"'
+

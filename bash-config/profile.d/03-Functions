@@ -1,4 +1,43 @@
-# vim: syntax=sh
+# vim: filetype=sh
+#
+# Useful alias to decompress stuff
+extract() {
+    [[ $# -lt 1 ]] && return
+    local Opts=
+    if [[ $1 = "-c" ]]; then 
+        Opts="-c"
+        shift
+    fi
+
+    if [ -f $1 ]; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1        ;;
+            *.tar.gz)    tar xzf $1     ;;
+            *.bz2)       bunzip2 $Opts $1       ;;
+            *.rar)       unrar e $1     ;;
+            *.gz)        gunzip $Opts $1     ;;
+            *.tar)       tar xf $1        ;;
+            *.tbz2)      tar xjvf $1      ;;
+            *.tgz)       tar xzvf $1       ;;
+            *.zip)       unzip $Opts $1     ;;
+            *.Z)         uncompress $1  ;;
+            *.7z)        7z x $1    ;;
+            *.xz)        unxz $Opts $1    ;;
+            *)           echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+alias decompress='extract'
+
+# Tar files
+mktar(){ tar cvf  "${1%%/}.tar"     "${1%%/}/";  }
+mktgz(){ tar cvzf "${1%%/}.tar.gz"  "${1%%/}/";  }
+mktbz(){ tar cvjf "${1%%/}.tar.bz2" "${1%%/}/";  }
+
+
 # Find a file somewhere in or below the current directory, with a given fragment of the filename
 # The search is case-insensitive
 function ffile() { find . | grep -i --color=always "$1"; }
