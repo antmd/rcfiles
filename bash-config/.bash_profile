@@ -4,8 +4,3 @@ if [ -f ~/.bashrc  ]; then
    source ~/.bashrc
 fi
 
-# Are we running inside INTELLIJ terminal emulator?
-
-if [[ -n "$DISPLAY" && -e ~/.Xmodmap ]]; then
-    xmodmap ~/.Xmodmap
-fi
