@@ -7,7 +7,7 @@ fi
 
 ProfileDir="${HOME}/profile.d"
 for f in $( ls  -1H "${ProfileDir}" ) ; do
-    if [[ -f "${ProfileDir}/$f" && $f =~ ^[[:digit:]]+-[[:alnum:]]+$ ]]; then
+    if [[ -f "${ProfileDir}/$f" && $f =~ ^[[:digit:]]+-[-_[:alnum:]]+$ ]]; then
         source "${ProfileDir}/$f"
     fi
 done
@@ -16,7 +16,7 @@ done
 
 LocalDir="${HOME}/profile.d/Local"
 for f in $( ls  -1H "${LocalDir}" ) ; do
-    if [[ -f "${LocalDir}/$f" && $f =~ [[:digit:]]+-[[:alnum:]]+ ]]; then
+    if [[ -f "${LocalDir}/$f" && $f =~ [[:digit:]]+-[-_[:alnum:]]+ ]]; then
         source "${LocalDir}/$f"
     fi
 done
@@ -27,7 +27,7 @@ if [[ $- == *i*  ]]; then
     # To test for a 'login shell' use if shopt -q login_shell; then...
     InteractiveDir="${HOME}/profile.d/Interactive"
     for f in $( ls  -1H "${InteractiveDir}" ) ; do
-        if [[ -f "${InteractiveDir}/$f" && $f =~ [[:digit:]]+-[[:alnum:]]+ ]]; then
+        if [[ -f "${InteractiveDir}/$f" && $f =~ [[:digit:]]+-[-_[:alnum:]]+ ]]; then
             source "${InteractiveDir}/$f"
         fi
     done
