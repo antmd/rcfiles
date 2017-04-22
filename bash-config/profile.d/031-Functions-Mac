@@ -11,8 +11,11 @@ function vim_at_line() {
     fi
 }
 
+export PROJECTS_DIR=~/Development/Experiments
+
 function makeproj()
 {
+    cd "$PROJECTS_DIR"
     last_arg=${@:$#}
 
     MainFile=$(~/script/make_project.sh "$@" | grep 'EDITSPEC:')
