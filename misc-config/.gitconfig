@@ -55,3 +55,8 @@
     required = true
 [http]
     postBuffer = 1048576000
+[color]
+	diff = true
+	branch = true
+	interactive = true
+	status = true
