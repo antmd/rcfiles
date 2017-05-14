@@ -1,0 +1,24 @@
+#! /usr/bin/env bash
+
+# Copy stdin to the system clipboard
+
+function mac_run_cmd() {
+    # If reattach-to-user-namespace is not available, just run the command.
+    if [ -n "$(command -v reattach-to-user-namespace)" ]; then
+      reattach-to-user-namespace $@
+    else
+      exec "$@"
+    fi
+}
+
+if [[ "$(uname)" = "Darwin" ]]; then
+    # OS X
+    mac_run_cmd pbcopy
+else
+    # Linux
+    xclip -in -selection clipboard
+fi
+
+
+
+# vim: filetype=sh:
