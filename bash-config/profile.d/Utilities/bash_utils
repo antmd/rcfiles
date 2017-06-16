@@ -192,6 +192,7 @@ function os_version_name() {
         10.10) echo "Yosemite";;
         10.11) echo "ElCapitan";;
         10.12) echo "Sierra";;
+        10.13) echo "HighSierra";;
     *) echo "Unknown";;
     esac
 }
@@ -205,3 +206,5 @@ function xcode_base_dir() {
     fi
     echo "$xcode_dir"
 }
+
+# vim:filetype=sh:
