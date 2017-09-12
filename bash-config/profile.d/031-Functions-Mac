@@ -2,8 +2,8 @@
 
 if [[ -n "$OS_MAC" ]]; then
 
-function numcores() {                  
-    sysctl -n hw.ncpu                  
+function numcores() {
+    sysctl -n hw.ncpu
 }
 
 function vim_at_line() {
