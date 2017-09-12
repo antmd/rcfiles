@@ -105,8 +105,8 @@
 ! ==========================
 !
 #define FONT_REGULAR -*-source code pro-medium-*-normal-*-17-120-*-*-*-*-*-*
-#define FONT_BOLD xft:Liberation Mono:style=Bold:pixelsize=14 
-#define FONT_ITALIC xft:Liberation Mono:style=Italic:pixelsize=14 
+#define FONT_BOLD -*-source code pro-medium-*-normal-*-17-120-*-*-*-*-*-*
+#define FONT_ITALIC -*-source code pro-medium-*-normal-*-17-120-*-*-*-*-*-*
 Xft*antialias: true
 
 

@@ -60,3 +60,5 @@
 	branch = true
 	interactive = true
 	status = true
+[credential]
+	helper = osxkeychain

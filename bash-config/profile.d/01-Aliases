@@ -27,6 +27,8 @@ alias grep="grep -s --color=auto"
 alias egrep="egrep -s --color=auto"
 alias fgrep="fgrep -s --color=auto"
 
+alias hilite='highlight --out-format xterm256 --style solarized-dark'
+
 alias m='less -a -i -P='
 alias which='type -all'
 alias manprint='groff -mandoc -Tlatin1 '
