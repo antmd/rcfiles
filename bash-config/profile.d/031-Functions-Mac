@@ -2,6 +2,10 @@
 
 if [[ -n "$OS_MAC" ]]; then
 
+function numcores() {                  
+    sysctl -n hw.ncpu                  
+}
+
 function vim_at_line() {
     set - $( echo $1 | tr ':' ' ')
     if [[ $# -eq 2 ]]; then
