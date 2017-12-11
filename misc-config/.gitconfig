@@ -63,4 +63,5 @@
 	interactive = true
 	status = true
 [credential]
-	helper = osxkeychain
+    # helper = osxkeychain
+    helper = cache --timeout=999999
