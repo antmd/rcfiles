@@ -1,7 +1,7 @@
 set ignorecase
 set wrapscan
 set guioptions=br
-
+set debug
 set relativenumber
 set number
 set blinkcursor

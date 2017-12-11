@@ -33,13 +33,15 @@
     pushup = !git push --set-upstream origin `git symbolic-ref --short HEAD`
     last = log -1 HEAD
     st = status -sb
+	accept-ours = "!f() { git checkout --ours -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"
+	accept-theirs = "!f() { git checkout --theirs -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"
 [apply]
     whitespace = nowarn
 [core]
     editor = /usr/bin/vim
     excludesfile = ~/.gitignore_global
 [push]
-    default = tracking
+	default = current
 [core]
     symlinks = true
     autocrlf = input

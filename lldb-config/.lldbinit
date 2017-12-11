@@ -23,22 +23,22 @@ command alias args register read -A
 command alias mailsym target symbols add /Users/ant/Development/MailHub/debug/Mail.dwarf
 
 # Add 'sniff_objc_exception_throw' command
-command script import  ~/rcfiles/lldb/sniff_objc_exception_throw.py
-command script import  ~/rcfiles/lldb/framestats.py
-command script import  ~/rcfiles/lldb/info_sources.py
-command script import  ~/rcfiles/lldb/print_args.py
-command script import  ~/rcfiles/lldb/load_symbols.py
-command script import  ~/rcfiles/lldb/formatters/MailSummaries.py
+command script import  ~/lldb/sniff_objc_exception_throw.py
+command script import  ~/lldb/framestats.py
+command script import  ~/lldb/info_sources.py
+command script import  ~/lldb/print_args.py
+command script import  ~/lldb/load_symbols.py
+command script import  ~/lldb/formatters/MailSummaries.py
 # Automatically continue for specified exception names, or class names.
 # To use, add an action 'Debugger Command' to the general exception breakpoint, such as:
 #    ignore_specified_objc_exceptions name:NSAccessibilityException className:NSSomeException
-command script import  ~/rcfiles/lldb/ignore_specified_objc_exceptions.py
+command script import  ~/lldb/ignore_specified_objc_exceptions.py
 # Automatically continue for specified exception names, or class names.
 # To use, add an action 'Debugger Command' to the general exception breakpoint, such as:
 #    ignore_exception Security::UnixError
-command script import  ~/rcfiles/lldb/ignore_exception.py
-command script import  ~/rcfiles/lldb/injectfscript.py
-#command script import  ~/rcfiles/lldb/formatters/qstring.py
+command script import  ~/lldb/ignore_exception.py
+command script import  ~/lldb/injectfscript.py
+#command script import  ~/lldb/formatters/qstring.py
 
 # jump aliases
 # jump 0xfeedface

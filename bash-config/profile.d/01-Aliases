@@ -58,6 +58,7 @@ fi
 
 if [[ -n "$OS_MAC" ]]; then
     alias ldd='otool -L'
+    alias symbolicatecrash='DEVELOPER_DIR="/Applications/Xcode-beta.app/Contents/Developer" symbolicatecrash'
 fi
 
 alias now='date +"%Y-%m-%d %T"'
