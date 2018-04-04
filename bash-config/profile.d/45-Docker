@@ -26,6 +26,15 @@ if [[ -n "$OS_MAC" ]]; then
     fi
 fi
 
+# List mounted volumes for docker container
+function docker-volumes() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: docker-volumes <container>"
+        return
+    fi
+    docker inspect --format '|Volumes:|--------|{{range .Mounts}}Host -> Container: {{.Source}} -> {{.Destination}}|{{end}}' $1 | tr '|' '\n' | tr -d '{' | tr -d '}'
+}
+
 
 # vim:filetype=sh:
 

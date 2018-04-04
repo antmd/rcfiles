@@ -14,3 +14,20 @@ function virtualenv-gt() {
     . /usr/local/bin/virtualenvwrapper-gt.sh
 }
 
+if which rlwrap >/dev/null 2>&1; then
+    function python() {
+        if [[ $# -eq 0 ]]; then
+            rlwrap -H ~/.python_history python
+        else
+            python "$@"
+        fi
+    }
+    function python3() {
+        if [[ $# -eq 0 ]]; then
+            rlwrap -H ~/.python_history python3
+        else
+            python3 "$@"
+        fi
+    }
+fi
+

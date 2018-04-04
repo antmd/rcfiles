@@ -20,7 +20,7 @@ function removeFromPath() {
 
 
 if [[ -e  /usr/libexec/java_home ]]; then
-    setjdk 1.6 >/dev/null 2>&1
+    setjdk 1.8 >/dev/null 2>&1
 fi
 # vim:filetype=sh:
 
