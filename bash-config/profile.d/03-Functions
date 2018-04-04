@@ -1,5 +1,16 @@
 # vim: filetype=sh
 #
+# rm -rf iff in directory 'build'
+rmbuild() {
+    local d=$(basename $(pwd) )
+    if [[ "$d" == "build" ]]; then
+        echo "Clearing build directory"
+        rm -rf *
+    else
+        echo "Not clearing directory '$d'"
+    fi
+}
+
 # Useful alias to decompress stuff
 extract() {
     [[ $# -lt 1 ]] && return
