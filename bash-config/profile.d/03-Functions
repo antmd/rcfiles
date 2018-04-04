@@ -1,5 +1,10 @@
 # vim: filetype=sh
 #
+# Read from stdin, convert non-printable stuff to '.', pipe to less
+binless() {
+    cat | tr -c '\11\12\15\40-\176' '.' | less
+}
+
 # rm -rf iff in directory 'build'
 rmbuild() {
     local d=$(basename $(pwd) )
