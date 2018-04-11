@@ -28,6 +28,7 @@
     remotes = remote -v show
     submodule-update = submodule update --init --recursive
     filelog = log -u
+    history = log --all --full-history -- 
     fl = log -u
     conflicts = !git ls-files -u | cut -f 2 | sort -u
     pushup = !git push --set-upstream origin `git symbolic-ref --short HEAD`

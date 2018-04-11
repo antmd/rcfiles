@@ -1,5 +1,11 @@
 # vim: filetype=sh
 #
+dectohex() {
+    echo "obase=16; $1"|bc
+}
+hex2dec() {
+    echo "ibase=16; $1"|bc
+}
 # Read from stdin, convert non-printable stuff to '.', pipe to less
 binless() {
     cat | tr -c '\11\12\15\40-\176' '.' | less
