@@ -1,7 +1,19 @@
 # Extended ls
-alias ll='ls -lrt'
-alias la='ls -lart'
-alias ls='ls -HF'
+if [[ -n "$OS_LINUX" ]]; then
+    alias ll='ls -lrt --color=auto'
+    alias la='ls -lart --color=auto'
+    alias ls='ls -HF --color=auto'
+else
+    alias ll='ls -lrt'
+    alias la='ls -lart'
+    alias ls='ls -HF'
+fi
+
+if [[ -e '/usr/bin/nvim' ]]; then
+    alias vim='nvim'
+    alias vi='nvim'
+    export VISUAL=nvim
+fi
 
 # cd
 alias -- --='cd -'

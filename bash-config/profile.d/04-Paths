@@ -3,6 +3,7 @@ define(){ IFS='\n' read -r -d '' ${1} || true; }
 # Leading tabs -- cannot expand variables
 define PATHS <<-EOT
     .
+    ${HOME}/.local/bin
     ${HOME}/bin
     ${HOME}/script
     ${HOME}/Development/bin
