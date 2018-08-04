@@ -1,5 +1,5 @@
 
-pathmunge PYTHONPATH "${HOME}/script/Python"
+#pathmunge PYTHONPATH "${HOME}/script/Python"
 
 # Virtual env wrapper
 if [[ -e /usr/local/bin/virtualenvwrapper.sh ]]; then
@@ -15,16 +15,16 @@ function virtualenv-gt() {
 if which rlwrap >/dev/null 2>&1; then
     function python() {
         if [[ $# -eq 0 ]]; then
-            rlwrap -H ~/.python_history python
+            rlwrap -H ~/.python_history /usr/bin/python
         else
-            python "$@"
+            /usr/bin/python "$@"
         fi
     }
     function python3() {
         if [[ $# -eq 0 ]]; then
-            rlwrap -H ~/.python_history python3
+            rlwrap -H ~/.python_history /usr/bin/python3
         else
-            python3 "$@"
+            /usr/bin/python3 "$@"
         fi
     }
 fi
