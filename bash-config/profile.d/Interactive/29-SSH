@@ -1,8 +1,16 @@
 
+# https://www.funtoo.org/Keychain
 
-ssh-add &>/dev/null || eval `ssh-agent` &>/dev/null  # start ssh-agent if not present
-[ $? -eq 0  ] && {                                     # ssh-agent has started
-    ssh-add ~/.ssh/*.pri
-}
+if type keychain >/dev/null 2>&1; then
+    for k in `ls -1 ~/.ssh/*_rsa`; do
+        eval `keychain -q --eval ${k}`
+    done
+
+else
+    ssh-add &>/dev/null || eval `ssh-agent` &>/dev/null  # start ssh-agent if not present
+    [ $? -eq 0  ] && {                                     # ssh-agent has started
+        ssh-add ~/.ssh/*.pri
+    }
+fi
 
 # vim:filetype=sh:
