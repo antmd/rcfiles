@@ -9,7 +9,7 @@ if type keychain >/dev/null 2>&1; then
 else
     ssh-add &>/dev/null || eval `ssh-agent` &>/dev/null  # start ssh-agent if not present
     [ $? -eq 0  ] && {                                     # ssh-agent has started
-        ssh-add ~/.ssh/*.pri
+        ls ~/.ssh/*.pri &>/dev/null && ssh-add ~/.ssh/*.pri
     }
 fi
 
