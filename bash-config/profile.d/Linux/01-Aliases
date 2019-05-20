@@ -1,0 +1,15 @@
+
+alias ll='ls -lrt --color=auto'
+alias la='ls -lart --color=auto'
+alias ls='ls -HF --color=auto'
+
+# All open TCP/IP and UDP ports
+alias ports='netstat -tulanp'
+
+alias du0="du --max-depth=0"
+alias du1="du --max-depth=1"
+if [[ "${USER}" != 'root' ]]; then
+    alias yum='sudo yum'
+fi
+
+# vim:ftype=sh:

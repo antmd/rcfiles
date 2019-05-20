@@ -1,0 +1,9 @@
+
+alias ll='ls -lrt'
+alias la='ls -lart'
+alias ls='ls -HF'
+
+alias ldd='otool -L'
+alias symbolicatecrash='DEVELOPER_DIR="/Applications/Xcode-beta.app/Contents/Developer" symbolicatecrash'
+
+# vim:ftype=sh:

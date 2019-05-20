@@ -1,0 +1,8 @@
+
+# Colorise ls
+export CLICOLOR=1
+export CLICOLOR_FORCE=1
+export LSCOLORS=exfxcxdxbxegedabagacad
+
+
+# vim:ftype=sh:
