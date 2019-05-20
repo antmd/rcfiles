@@ -2,6 +2,8 @@
 # JAVA,
 # Your java 6 version here
 
+if ls /Library/Java/JavaVirtualMachines/*jdk* >&/dev/null; then
+
 function setjdk() {
     if [ $# -ne 0 ]; then
         removeFromPath '/System/Library/Frameworks/JavaVM.framework/Home/bin'
@@ -21,6 +23,8 @@ function removeFromPath() {
 
 if [[ -e  /usr/libexec/java_home ]]; then
     setjdk 1.8 >/dev/null 2>&1
+fi
+
 fi
 # vim:filetype=sh:
 

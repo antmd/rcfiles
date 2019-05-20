@@ -1,7 +1,5 @@
 # vim: syntax=sh
 
-if [[ -n "$OS_MAC" ]]; then
-
 function numcores() {
     sysctl -n hw.ncpu
 }
@@ -69,5 +67,4 @@ set -x
 set +x
 }
 
-fi
 
