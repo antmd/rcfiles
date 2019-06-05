@@ -37,10 +37,10 @@ fi
 # Source the contents of the ~/profile.d directory
 # Source the contents of the ~/profile.d/Local directory
 ProfileDirs="${HOME}/profile.d"
-ProfileDirs="${ProfileDirs} ${HOME}/profile.d/Local"
 if [[ -n "$OsProfileDir" ]]; then
     ProfileDirs="${ProfileDirs} ${HOME}/profile.d/${OsProfileDir}"
 fi
+ProfileDirs="${ProfileDirs} ${HOME}/profile.d/Local"
 # If we are an interactive shell, source the contents of ~/profile.d/Interactive
 if [[ $- == *i*  ]]; then
     ProfileDirs="${ProfileDirs} ${HOME}/profile.d/Interactive"
