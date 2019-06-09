@@ -194,6 +194,7 @@ function os_version_name() {
         10.12) echo "Sierra";;
         10.13) echo "HighSierra";;
         10.14) echo "Mojave";;
+        10.15) echo "Catalina";;
     *) echo "Unknown";;
     esac
 }

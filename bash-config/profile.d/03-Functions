@@ -62,9 +62,9 @@ mktbz(){ tar cvjf "${1%%/}.tar.bz2" "${1%%/}/";  }
 
 # Find a file somewhere in or below the current directory, with a given fragment of the filename
 # The search is case-insensitive
-function ffile() { find . | grep -i --color=always "$1"; }
+function ffile() { find . | grep -i --color=auto "$1"; }
 # The extra 'grep' is for colouring only
-function fdir() { find . -type d -iname "$1" | grep -i --color=always "$1"; }
+function fdir() { find . -type d -iname "$1" | grep -i --color=auto "$1"; }
 
 # Pathmunge -- add a new path to a path variable
 # arg1 - name of path variable
